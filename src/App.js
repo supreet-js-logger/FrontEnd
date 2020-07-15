@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { Tracker } from "../../logger";
-const mylogger = Tracker();
+// import { Tracker } from "../../logger";
+// const mylogger = Tracker();
 
 const App = () => {
   function randomConsoleLog() {
@@ -22,8 +22,8 @@ const App = () => {
     // }
   }
   function getLogCount() {
-    console.dir(mylogger.getLogData());
-    alert(mylogger.getLogCount());
+    // console.dir(mylogger.getLogData());
+    // alert(mylogger.getLogCount());
   }
   function throwRandomError() {
     throw new Error("random error");
