@@ -13,7 +13,6 @@
     "lint:fix": "eslint  ./src --fix --resolve-plugins-relative-to .",
     "prettier:fix": "prettier ./src   --write"
   },
-
   "lint-staged": {
     "**/src*.{js,json,scss}": [
       "npm run prettier:fix",
@@ -25,16 +24,21 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },
   "devDependencies": {
     "@babel/core": "^7.10.4",
+    "@babel/plugin-transform-async-to-generator": "^7.10.4",
     "@babel/preset-env": "^7.10.4",
     "@babel/preset-react": "^7.10.4",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^26.1.0",
     "babel-loader": "^8.1.0",
+    "babel-plugin-transform-async-generator-functions": "^6.24.1",
+    "dotenv": "^8.2.0",
     "eslint": "^7.4.0",
     "eslint-config-airbnb": "^18.2.0",
     "eslint-config-airbnb-base": "^14.2.0",

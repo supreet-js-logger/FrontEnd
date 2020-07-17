@@ -1,6 +1,12 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-
+const webpack = require("webpack");
+const dotenv = require("dotenv");
+const env = dotenv.config().parsed;
+const envKeys = Object.keys(env).reduce((prev, next) => {
+  prev[`process.env.${next}`] = JSON.stringify(env[next]);
+  return prev;
+}, {});
 module.exports = {
   // the output bundle won't be optimized for production but suitable for development
   mode: "development",
@@ -21,10 +27,11 @@ module.exports = {
         exclude: /node_modules/,
         // use the babel-loader for transpiling JavaScript to a suitable format
         loader: "babel-loader",
-        options: {
-          // attach the presets to the loader (most projects use .babelrc file instead)
-          presets: ["@babel/preset-env", "@babel/preset-react"],
-        },
+        // options: {
+        //   // attach the presets to the loader (most projects use .babelrc file instead)
+        //   presets: ["@babel/preset-env", "@babel/preset-react"],
+        //   plugins: ["@babel/plugin-transform-async-to-generator"],
+        // },
       },
     ],
   },
@@ -38,5 +45,6 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "src", "index.html"),
     }),
+    new webpack.DefinePlugin(envKeys),
   ],
 };
