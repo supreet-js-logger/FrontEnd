@@ -1,10 +1,11 @@
 import { connect } from "react-redux";
 import Header from "./Header";
+import { logOutUser } from "../../actions/userActions";
 
 const mapDispatchToProps = (dispatch) => {
   return {
     logOut: () => {
-      dispatch({ type: "SET_USER", payload: null });
+      dispatch(logOutUser());
     },
   };
 };

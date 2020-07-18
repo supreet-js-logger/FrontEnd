@@ -11,6 +11,17 @@ export const loginUser = (email, password) => {
   };
 };
 
+export const logOutUser = () => {
+  return async (dispatch) => {
+    let response = await getApi("/auth/logout");
+    if (response.success) {
+      dispatch({ type: "SET_USER", payload: null });
+    } else {
+      alert("invalid");
+    }
+  };
+};
+
 export const getLoggedInUserDetails = () => {
   return async (dispatch) => {
     try {
