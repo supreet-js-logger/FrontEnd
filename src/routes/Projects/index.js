@@ -6,14 +6,12 @@ const mapDispatchToProps = (dispatch) => {
     getAllProjects: (setProjects, setIsLoading) =>
       dispatch(getAllProjects(setProjects, setIsLoading)),
     createNewProject: (formData, closeFormAndUpdateList) =>
-      dispatch(createNewProject(formData, closeFormAndUpdateList)),
+      createNewProject(formData, closeFormAndUpdateList),
   };
 };
 
 const mapStateToProps = (state) => {
-  return {
-    token: state.token,
-  };
+  return {};
 };
 const ProjectsContainer = connect(
   mapStateToProps,

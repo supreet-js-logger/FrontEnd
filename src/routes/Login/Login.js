@@ -4,8 +4,8 @@ import { Button } from "@material-ui/core";
 
 const Login = (props) => {
   let [values, setValues] = useState({
-    email: "",
-    password: "",
+    email: "supreet.s.sethi@gmail.com",
+    password: "Suprit12!",
   });
   const handleSubmit = async (event) => {
     event.preventDefault();

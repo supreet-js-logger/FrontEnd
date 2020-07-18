@@ -4,7 +4,6 @@ import Header from "./Header";
 const mapDispatchToProps = (dispatch) => {
   return {
     logOut: () => {
-      dispatch({ type: "SET_TOKEN", payload: null });
       dispatch({ type: "SET_USER", payload: null });
     },
   };

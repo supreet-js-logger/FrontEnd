@@ -6,13 +6,12 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setIsLaoding: (loadingState) =>
       dispatch({ type: "SET_LOADING_STATE", payload: loadingState }),
-    getLoggedInUserDetails: (token) => dispatch(getLoggedInUserDetails(token)),
+    getLoggedInUserDetails: () => dispatch(getLoggedInUserDetails()),
   };
 };
 
 const mapStateToProps = (state) => {
   return {
-    token: state.token,
     isLoading: state.isLoading,
   };
 };

@@ -17,9 +17,8 @@ import Projects from "./routes/Projects";
 
 const App = (props) => {
   useEffect(() => {
-    if (props.token) props.getLoggedInUserDetails(props.token);
-    else props.setIsLaoding(false);
-  }, [props.token]);
+    props.getLoggedInUserDetails();
+  }, []);
   if (props.isLoading) return <CircularProgress />;
 
   return (
