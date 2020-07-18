@@ -12,6 +12,7 @@ import Login from "./routes/Login";
 import Signup from "./routes/SingUp";
 import Header from "./Common/Header";
 import Home from "./routes/Home";
+import Projects from "./routes/Projects";
 // const mylogger = Tracker();
 
 const App = (props) => {
@@ -32,11 +33,11 @@ const App = (props) => {
           <UnauthRoute path="/signup">
             <Signup />
           </UnauthRoute>
-          <PrivateRoute path="/">
+          <PrivateRoute exact path="/">
             <Home />
           </PrivateRoute>
-          <PrivateRoute path="/dashboard">
-            <Home />
+          <PrivateRoute path="/project">
+            <Projects />
           </PrivateRoute>
         </Switch>
       </Container>

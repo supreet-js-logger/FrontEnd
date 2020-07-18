@@ -1,7 +1,7 @@
 export const loginUser = (email, password) => {
   return async (dispatch, getState) => {
-    let getLoggedInuser = `${process.env.API_URL}/auth/login`;
-    let response = await fetch(getLoggedInuser, {
+    let loginUser = `${process.env.API_URL}/auth/login`;
+    let response = await fetch(loginUser, {
       method: "post",
       headers: {
         Accept: "application/json",
@@ -44,8 +44,8 @@ export const getLoggedInUserDetails = (token) => {
 
 export const registerUser = (formData) => {
   return async (dispatch, getState) => {
-    let getLoggedInuser = `${process.env.API_URL}/auth/register`;
-    let response = await fetch(getLoggedInuser, {
+    let registerUser = `${process.env.API_URL}/auth/register`;
+    let response = await fetch(registerUser, {
       method: "post",
       headers: {
         Accept: "application/json",

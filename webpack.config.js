@@ -41,6 +41,9 @@ module.exports = {
     disableHostCheck: true,
     open: false,
     historyApiFallback: true,
+    hot: false,
+    inline: false,
+    liveReload: false,
   },
   // add a custom index.html as the template
   plugins: [
