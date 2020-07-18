@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Login from "./Login";
-import { Button, Container } from "@material-ui/core";
+import { Container } from "@material-ui/core";
 import Signup from "./Signup";
-import MainApp from "./MainApp";
+import Header from "./Common/Header";
 // const mylogger = Tracker();
 
 const App = (props) => {
@@ -22,11 +22,6 @@ const App = (props) => {
     if (data.success) props.setUser(data.data);
     props.setIsLaoding(false);
   };
-  const logOut = () => {
-    localStorage.removeItem("token");
-    props.setUser(null);
-    props.setToken(null);
-  };
 
   useEffect(() => {
     debugger;
@@ -38,18 +33,7 @@ const App = (props) => {
   return (
     <>
       <Container maxWidth={false} fixed={false} disableGutters={true}>
-        <MainApp
-          user={props.user}
-          setShowLogin={() => {
-            setShowSignup(false);
-            setShowLogin(true);
-          }}
-          setShowSignup={() => {
-            setShowSignup(true);
-            setShowLogin(false);
-          }}
-          logOut={logOut}
-        />
+        <Header />
         <Container>
           {!props.user && (
             <>

@@ -1,5 +1,5 @@
 let initialState = {
-  token: localStorage.getItem("token"),
+  token: localStorage.getItem("token") || null,
   user: null,
   isLoading: true,
 };
@@ -7,6 +7,7 @@ const userReducer = function (state = initialState, action) {
   let udpatedState = { ...state };
   switch (action.type) {
     case "SET_TOKEN":
+      localStorage.setItem("token", action.payload);
       udpatedState.token = action.payload;
       return udpatedState;
     case "SET_USER":
