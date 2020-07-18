@@ -41,3 +41,24 @@ export const getLoggedInUserDetails = (token) => {
     }
   };
 };
+
+export const registerUser = (formData) => {
+  return async (dispatch, getState) => {
+    let getLoggedInuser = `${process.env.API_URL}/auth/register`;
+    let response = await fetch(getLoggedInuser, {
+      method: "post",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+    let data = await response.json();
+    if (data.success) {
+      dispatch({ type: "SET_TOKEN", payload: data.token });
+      dispatch(getLoggedInUserDetails(data.token));
+    } else {
+      alert("invalid");
+    }
+  };
+};
