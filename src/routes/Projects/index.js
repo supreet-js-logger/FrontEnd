@@ -1,8 +1,13 @@
 import { connect } from "react-redux";
 import Projects from "./Projects";
-
+import { getAllProjects, createNewProject } from "../../actions/projectActions";
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    getAllProjects: (setProjects, setIsLoading) =>
+      dispatch(getAllProjects(setProjects, setIsLoading)),
+    createNewProject: (formData, closeFormAndUpdateList) =>
+      dispatch(createNewProject(formData, closeFormAndUpdateList)),
+  };
 };
 
 const mapStateToProps = (state) => {

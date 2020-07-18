@@ -1,29 +1,84 @@
 import React, { useState, useEffect } from "react";
-import { CircularProgress } from "@material-ui/core";
+import {
+  CircularProgress,
+  Button,
+  TextField,
+  IconButton,
+} from "@material-ui/core";
+import { Close } from "@material-ui/icons";
 
+const initialFormValues = {
+  name: "",
+  type: "",
+};
 const Projects = (props) => {
   const [isLoading, setIsLoading] = useState(true);
+  const [showAddProjectForm, setShowAddProjectForm] = useState(false);
   const [projects, setProjects] = useState([]);
-
-  useEffect(async () => {
-    let getAllProjects = `${process.env.API_URL}/projects`;
-    let headers = {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${props.token}`,
-    };
-    let response = await fetch(getAllProjects, {
-      headers,
+  let [values, setValues] = useState(initialFormValues);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    props.createNewProject(values, () => {
+      props.getAllProjects(setProjects, setIsLoading);
+      setShowAddProjectForm(false);
+      setValues(initialFormValues);
     });
-    let data = await response.json();
-    if (data.success) {
-      setProjects(data.data);
-      setIsLoading(false);
-    }
+  };
+  const handleChange = (event) => {
+    let formValues = { ...values };
+    formValues[event.target.name] = event.target.value;
+    setValues(formValues);
+  };
+
+  useEffect(() => {
+    props.getAllProjects(setProjects, setIsLoading);
   }, []);
 
   if (isLoading) return <CircularProgress />;
-  return projects.map((project) => <>{JSON.stringify(project)}</>);
+  return (
+    <>
+      <Button color="inherit" onClick={() => setShowAddProjectForm(true)}>
+        Add a new Project
+      </Button>
+      {showAddProjectForm && (
+        <form onSubmit={handleSubmit}>
+          <TextField
+            id="name"
+            name="name"
+            label="Project name"
+            type="text"
+            value={values.name}
+            onChange={handleChange}
+          />
+          <TextField
+            id="type"
+            name="type"
+            label="Type"
+            type="text"
+            value={values.type}
+            onChange={handleChange}
+          />
+          <Button variant="contained" color="primary" type="submit">
+            Submit
+          </Button>
+          <IconButton
+            aria-label="close project form"
+            aria-haspopup="true"
+            onClick={() => {
+              setShowAddProjectForm(false);
+              setValues(initialFormValues);
+            }}
+            color="inherit"
+          >
+            <Close />
+          </IconButton>
+        </form>
+      )}
+      {projects.map((project) => (
+        <div key={project.__id}>{JSON.stringify(project)}</div>
+      ))}
+    </>
+  );
 };
 
 export default Projects;
