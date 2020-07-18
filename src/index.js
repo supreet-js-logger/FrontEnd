@@ -1,7 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
 import * as Sentry from "@sentry/react";
+import { Provider } from "react-redux";
+import AppContainer from "./AppContainer";
+import store from "./store";
 
 Sentry.init({
   dsn:
@@ -13,4 +15,9 @@ Sentry.init({
 // var mylogger = Tracker();
 // mylogger.init();
 //mylogger.init('my key goes here')
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(
+  <Provider store={store}>
+    <AppContainer />
+  </Provider>,
+  document.getElementById("root"),
+);

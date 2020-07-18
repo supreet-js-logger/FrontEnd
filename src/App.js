@@ -6,10 +6,7 @@ import Signup from "./Signup";
 import MainApp from "./MainApp";
 // const mylogger = Tracker();
 
-const App = () => {
-  let [isLaoding, setLoadingState] = useState(true);
-  let [token, setToken] = useState(localStorage.getItem("token"));
-  let [user, setUser] = useState(null);
+const App = (props) => {
   let [showLogin, setShowLogin] = useState(false);
   let [showSignup, setShowSignup] = useState(false);
   const getLoggedInUserDetails = async () => {
@@ -18,28 +15,31 @@ const App = () => {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${props.token}`,
       },
     });
     let data = await response.json();
-    if (data.success) setUser(data.data);
-    setLoadingState(false);
+    if (data.success) props.setUser(data.data);
+    props.setIsLaoding(false);
   };
   const logOut = () => {
     localStorage.removeItem("token");
-    setUser(null);
-    setToken(null);
+    props.setUser(null);
+    props.setToken(null);
   };
+
   useEffect(() => {
-    if (token || isLaoding) getLoggedInUserDetails();
-  }, [token]);
-  if (isLaoding) return <CircularProgress />;
+    debugger;
+    if (props.token || props.isLoading) getLoggedInUserDetails();
+  }, [props.token, props.isLoading]);
+  console.dir(props);
+  if (props.isLoading) return <CircularProgress />;
 
   return (
     <>
       <Container maxWidth={false} fixed={false} disableGutters={true}>
         <MainApp
-          user={user}
+          user={props.user}
           setShowLogin={() => {
             setShowSignup(false);
             setShowLogin(true);
@@ -51,13 +51,13 @@ const App = () => {
           logOut={logOut}
         />
         <Container>
-          {!user && (
+          {!props.user && (
             <>
-              {showLogin && <Login setToken={setToken} />}
-              {showSignup && <Signup setToken={setToken} />}
+              {showLogin && <Login setToken={props.setToken} />}
+              {showSignup && <Signup setToken={props.setToken} />}
             </>
           )}
-          {user && JSON.stringify(user)}
+          {props.user && JSON.stringify(props.user)}
         </Container>
       </Container>
 
