@@ -17,6 +17,7 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     // the filename of the JS bundle will be bundle.js
     filename: "bundle.js",
+    publicPath: "/",
   },
   module: {
     rules: [
@@ -39,6 +40,7 @@ module.exports = {
     allowedHosts: ["http://app.logger.com/"],
     disableHostCheck: true,
     open: false,
+    historyApiFallback: true,
   },
   // add a custom index.html as the template
   plugins: [
