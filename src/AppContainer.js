@@ -1,19 +1,18 @@
 import { connect } from "react-redux";
+import { getLoggedInUserDetails } from "./actions/loginActions";
 import App from "./App";
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setToken: (token) => dispatch({ type: "SET_TOKEN", payload: token }),
     setIsLaoding: (loadingState) =>
       dispatch({ type: "SET_LOADING_STATE", payload: loadingState }),
-    setUser: (user) => dispatch({ type: "SET_USER", payload: user }),
+    getLoggedInUserDetails: (token) => dispatch(getLoggedInUserDetails(token)),
   };
 };
 
 const mapStateToProps = (state) => {
   return {
     token: state.token,
-    user: state.user,
     isLoading: state.isLoading,
   };
 };
