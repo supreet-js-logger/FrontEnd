@@ -74,9 +74,9 @@ const Projects = (props) => {
           </IconButton>
         </form>
       )}
-      {projects.map((project) => (
-        <div key={project.__id}>{JSON.stringify(project)}</div>
-      ))}
+      {projects.map((project) => {
+        return <div key={project._id}>{JSON.stringify(project)}</div>;
+      })}
     </>
   );
 };

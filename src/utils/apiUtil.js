@@ -15,7 +15,13 @@ export const hitApi = async (
   let fetchOptions = { method, credentials, headers };
   if (data) fetchOptions.body = data && JSON.stringify(data);
   let response = await fetch(urlToHit, fetchOptions);
-  if (!response.ok) throw response;
+  const contentType = response.headers.get("content-type");
+  if (
+    !(contentType && contentType.indexOf("application/json") !== -1) &&
+    !response.ok
+  ) {
+    throw response;
+  }
   let result = await response.json();
   return result;
 };
