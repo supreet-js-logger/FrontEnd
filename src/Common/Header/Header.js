@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import {
   AppBar,
   Toolbar,
@@ -32,22 +33,19 @@ const Header = ({ user, logOut }) => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6">JS Logger</Typography>
+          <Link to="/">
+            <Typography variant="h6">JS Logger</Typography>
+          </Link>
+
           {!user && (
-            <Button
-              color="inherit"
-              // onClick={props.setShowLogin}
-            >
-              Login
-            </Button>
-          )}
-          {!user && (
-            <Button
-              color="inherit"
-              // onClick={props.setShowSignup}
-            >
-              Signup
-            </Button>
+            <>
+              <Button color="inherit">
+                <Link to="/login">Login</Link>
+              </Button>
+              <Button color="inherit">
+                <Link to="/signup">Signup</Link>
+              </Button>
+            </>
           )}
           {user && (
             <div>
