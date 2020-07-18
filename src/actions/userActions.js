@@ -13,10 +13,13 @@ export const loginUser = (email, password) => {
 
 export const getLoggedInUserDetails = () => {
   return async (dispatch) => {
-    let response = await getApi("/auth/me");
-    if (response.success)
-      dispatch({ type: "SET_USER", payload: response.data });
-
+    try {
+      let response = await getApi("/auth/me");
+      if (response.success)
+        dispatch({ type: "SET_USER", payload: response.data });
+    } catch (ex) {
+      console.log(ex);
+    }
     dispatch({ type: "SET_LOADING_STATE", payload: false });
   };
 };
