@@ -10,6 +10,7 @@ import {
   MenuItem,
 } from "@material-ui/core";
 import { AccountCircle, Menu as MenuIcon } from "@material-ui/icons";
+import styles from "./Header.scss";
 
 const Header = ({ user, logOut }) => {
   const [anchorEl, setAnchorEl] = useState(null);

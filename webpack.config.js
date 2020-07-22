@@ -2,22 +2,19 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const webpack = require("webpack");
 const dotenv = require("dotenv");
+// const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const env = dotenv.config().parsed;
+const AssetsPlugin = require("assets-webpack-plugin");
+
 const envKeys = Object.keys(env).reduce((prev, next) => {
   prev[`process.env.${next}`] = JSON.stringify(env[next]);
   return prev;
 }, {});
+
 module.exports = {
-  // the output bundle won't be optimized for production but suitable for development
-  mode: "development",
   // the app entry point is /src/index.js
-  entry: path.resolve(__dirname, "src", "index.js"),
-  output: {
-    // the output of the webpack build will be in /dist directory
-    path: path.resolve(__dirname, "dist"),
-    // the filename of the JS bundle will be bundle.js
-    filename: "bundle.js",
-    publicPath: "/",
+  entry: {
+    app: path.resolve(__dirname, "src", "index.js"),
   },
   module: {
     rules: [
@@ -34,16 +31,15 @@ module.exports = {
         //   plugins: ["@babel/plugin-transform-async-to-generator"],
         // },
       },
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: ["file-loader"],
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        use: ["file-loader"],
+      },
     ],
-  },
-  devServer: {
-    allowedHosts: ["http://app.logger.com/"],
-    disableHostCheck: true,
-    open: false,
-    historyApiFallback: true,
-    hot: false,
-    inline: false,
-    liveReload: false,
   },
   // add a custom index.html as the template
   plugins: [
@@ -51,5 +47,24 @@ module.exports = {
       template: path.resolve(__dirname, "src", "index.html"),
     }),
     new webpack.DefinePlugin(envKeys),
+    new AssetsPlugin({
+      prettyPrint: true,
+      filename: "assets.json",
+      path: path.resolve(__dirname, "dist"),
+    }),
   ],
+  optimization: {
+    moduleIds: "hashed",
+    runtimeChunk: "single",
+    usedExports: true,
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: "vendors",
+          chunks: "all",
+        },
+      },
+    },
+  },
 };

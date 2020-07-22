@@ -9,5 +9,12 @@
             }
         ],
         "@babel/preset-react"
+    ],
+    "plugins": [
+        ["import", {
+            "libraryName": "@material-ui/core",
+            "libraryDirectory": "esm", // default: lib
+            "camel2DashComponentName": false, // default: true
+        }]
     ]
 }

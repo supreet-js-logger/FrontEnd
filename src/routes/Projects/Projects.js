@@ -32,6 +32,7 @@ const Projects = (props) => {
 
   useEffect(() => {
     props.getAllProjects(setProjects, setIsLoading);
+    // throw new ReferenceError("asdsad");
   }, []);
 
   if (isLoading) return <CircularProgress />;
@@ -74,6 +75,8 @@ const Projects = (props) => {
           </IconButton>
         </form>
       )}
+      {/* {undef} */}
+      <img src="asda.png" />
       {projects.map((project) => {
         return <div key={project._id}>{JSON.stringify(project)}</div>;
       })}
